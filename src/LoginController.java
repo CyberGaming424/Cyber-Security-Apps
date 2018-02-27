@@ -2,16 +2,19 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class LoginController {
+import javax.swing.JFrame;
+
+public class LoginController extends JFrame{
 	Scanner sc = new Scanner(System.in);
-	static ArrayList<String> userNames = new ArrayList<String>();
-	String passWord = "admin";
+	ArrayList<String> userNames = new ArrayList<String>();
+	ArrayList<String> passwords = new ArrayList<String>();
 	boolean accepted;
 	private Scanner users;
+	int currentUser;
 
 	public LoginController() {
 		try {
-			users = new Scanner(new File("UserNames.txt"));
+			users = new Scanner(new File("loginInfo.txt"));
 		} catch (Exception e) {
 			System.out.println("File not found");
 
@@ -22,12 +25,18 @@ public class LoginController {
 	}
 
 	void readFile() {
-		while (users.hasNext()) {
-			userNames.add(users.next());
-
-		}
-		for (String i : userNames) {
-			System.out.println(i);
+		int step = 1;
+		while(users.hasNext()) {
+			switch(step) {
+			case 1:
+				userNames.add(users.next());
+				step = 2;
+				break;
+			case 2:
+				passwords.add(users.next());
+				step = 1;
+				break;
+			}
 		}
 
 	}
@@ -38,6 +47,8 @@ public class LoginController {
 			String in = sc.next();
 			for (String users : userNames) {
 				if (in.equals(users)) {
+					currentUser = userNames.indexOf(users);
+					passCheck();
 					accepted = true;
 				}
 				
@@ -48,7 +59,15 @@ public class LoginController {
 	}
 
 	void passCheck() {
-
+		System.out.println("Pass: ");
+		String in = sc.next();
+		if(in.equals(passwords.get(currentUser))) {
+			System.out.println("Welcome to Cyber Corp.");
+			
+		}else {
+			//System.out.println();
+			System.out.println("Denied");
+		}
 	}
 
 	void newUser() {
