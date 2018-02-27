@@ -1,6 +1,7 @@
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -16,7 +17,7 @@ public class LoginController extends JFrame {
 	private static final long serialVersionUID = -7605758154007146213L;
 
 	JTextArea userName, password;
-	JButton login;
+	JButton login, newUser;
 	JLabel acceptedOrDenied;
 	JPanel panel = new JPanel();
 	Scanner sc = new Scanner(System.in);
@@ -83,7 +84,17 @@ public class LoginController extends JFrame {
 			}
 
 		});
+		newUser = new JButton("New User");
+		newUser.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+
+		});
 		panel.add(login);
+		panel.add(newUser);
 		acceptedOrDenied = new JLabel("Please enter you Username and password");
 		panel.add(acceptedOrDenied);
 
@@ -127,11 +138,18 @@ public class LoginController extends JFrame {
 		} else {
 			acceptedOrDenied.setText("Denied!");
 		}
-		
+
 		panel.add(acceptedOrDenied);
 	}
 
 	void newUser() {
+		JFrame newUser = new JFrame();
+		JPanel panel = new JPanel();
+		newUser.add(panel);
+		newUser.setTitle("New User");
+		newUser.setVisible(true);
+		newUser.setDefaultCloseOperation(EXIT_ON_CLOSE);
+		// newUser.
 
 	}
 
